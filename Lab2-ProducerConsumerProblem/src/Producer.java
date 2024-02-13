@@ -1,8 +1,9 @@
 import java.util.*;
+import java.util.logging.Logger;
 
 /**
  * The Producer creates elements and puts them into a message
- * queue.
+ * passing system, called the message queue.
  */
 class Producer extends Thread
 {
@@ -25,8 +26,9 @@ class Producer extends Thread
       while (true)
       {
          // produce an item & enter it into the buffer
-         Date message = new Date();
-         this.messageQueue.send(message);
+         Date dateMessage = new Date();
+         this.messageQueue.send(dateMessage);
+         Logger.getGlobal().info("Producer sent a message.");
       }
    }
 }

@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.logging.Logger;
 
 /**
  * The Consumer reads and removes elements from the message queue and
@@ -6,7 +7,7 @@ import java.util.*;
  */
 class Consumer extends Thread
 {
-   private MessageQueue messageQueue;
+   private final MessageQueue messageQueue;
 
    /**
     * Constructs a consumer object.
@@ -24,11 +25,12 @@ class Consumer extends Thread
    {
       while (true)
       {
-         Date message = this.messageQueue.receive();
-         if (message != null)
+         Date dateMessage = this.messageQueue.receive();
+         Logger.getGlobal().info("Consumer received message.");
+         if (dateMessage != null)
          {
-            // consume the message
-            System.out.println(message.toString);
+            // consume the dateMessage
+            System.out.println(dateMessage.toString());
          }
       }
    }
