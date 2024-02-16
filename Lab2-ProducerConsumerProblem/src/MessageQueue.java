@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.logging.Logger;
 
 /**
  * A message passing system for producer and consumer objects.
@@ -7,26 +8,29 @@ import java.util.*;
 public class MessageQueue
 {
    Vector<Date> vector;
-   int currentSize;
+   final int MAX_SIZE = 10;
 
    /**
     * Constructs a MessageQueue object.
     */
    public MessageQueue()
    {
-      this.vector = new Vector<Date>(0, 1);
-      this.currentSize = 0;
+      this.vector = new Vector<>();
    }
 
    /**
-    * Puts a message into the message queue.
+    * Puts a message into the message queue if the current size is less than MAX_SIZE.
     * @param dateMessage the message to add to the message queue
     */
-   public void send(Date dateMessage)
-   {
-      this.vector.add(dateMessage);
-      currentSize = currentSize + 1;
+   public void send(Date dateMessage) {
+      if (this.vector.size() < MAX_SIZE) {
+         this.vector.add(dateMessage);
+      } else {
+         Logger.getGlobal().info("Could not add message because queue is full!");
+         // This handles the case non-blockingly by simply not adding new messages when the queue is full.
+      }
    }
+
 
    /**
     * Reads and removes a message from the message queue.
@@ -42,7 +46,6 @@ public class MessageQueue
       {
          Date dateMessage;
          dateMessage = this.vector.remove(0);
-         currentSize = currentSize - 1;
          return dateMessage;
       }
    }
