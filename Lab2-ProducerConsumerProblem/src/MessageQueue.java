@@ -19,34 +19,48 @@ public class MessageQueue
    }
 
    /**
-    * Puts a message into the message queue if the current size is less than MAX_SIZE.
-    * @param dateMessage the message to add to the message queue
+    * Inserts a message into the queue.
+    * Blocks if the queue is full until space is available.
+    * @param dateMessage The message to be added to the queue.
     */
-   public void send(Date dateMessage) {
+   public synchronized void send(Date dateMessage) {
       if (this.vector.size() < MAX_SIZE) {
          this.vector.add(dateMessage);
-      } else {
-         Logger.getGlobal().info("Could not add message because queue is full!");
-         // This handles the case non-blockingly by simply not adding new messages when the queue is full.
+         notifyAll(); // Notify any waiting consumers that a new message is available.
+      } else
+      {
+         try
+         {
+            this.wait(); // Wait for space to become available.
+         } catch (InterruptedException e)
+         {
+            throw new RuntimeException(e);
+         }
       }
    }
 
 
    /**
-    * Reads and removes a message from the message queue.
-    * @return the next date in the message queue
+    * Removes and returns the oldest message from the queue.
+    * Blocks if the queue is empty until a message is available.
+    * @return The oldest message from the queue.
     */
-   public Date receive()
+   public synchronized Date receive()
    {
-      if (this.vector.isEmpty()) {
-         // Optionally, you could log this situation or wait until an item is available.
-         return null; // Return null or handle this scenario appropriately.
-      }
-      else
+      while (this.vector.isEmpty())
       {
-         Date dateMessage;
-         dateMessage = this.vector.remove(0);
-         return dateMessage;
+         try
+         {
+            this.wait(); // Wait for a message to become available.
+         }
+         catch (InterruptedException e)
+         {
+            return null; // Return null or handle it differently if interruption is not acceptable
+         }
       }
+      // At this point the queue is guaranteed not to be empty
+      Date dateMessage = this.vector.remove(0);
+      notifyAll(); // Notify any waiting producers that space has become available.
+      return dateMessage;
    }
 }

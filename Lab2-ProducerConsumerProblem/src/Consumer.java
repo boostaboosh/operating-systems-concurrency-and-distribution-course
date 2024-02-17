@@ -26,11 +26,11 @@ class Consumer extends Thread
       while (true)
       {
          Date dateMessage = this.messageQueue.receive();
-         Logger.getGlobal().info("Consumer received message.");
+         System.out.println("Consumer received message.");
          if (dateMessage != null)
          {
             // consume the dateMessage
-            System.out.println(dateMessage.toString());
+            System.out.println("consumed message: " + dateMessage.toString());
          }
       }
    }

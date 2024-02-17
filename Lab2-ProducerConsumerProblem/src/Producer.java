@@ -28,7 +28,7 @@ class Producer extends Thread
          // produce an item & enter it into the buffer
          Date dateMessage = new Date();
          this.messageQueue.send(dateMessage);
-         Logger.getGlobal().info("Producer sent a message.");
+         System.out.println("Producer sent a message.");
       }
    }
 }
