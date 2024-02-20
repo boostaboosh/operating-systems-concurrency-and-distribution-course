@@ -15,7 +15,7 @@ public class garden_gate_problem
       }
       else
       {
-         if (args[0].compareToIgnoreCase("gate_bottom") ==0)
+         if (args[0].compareToIgnoreCase("gate_bottom") == 0)
          {
             System.out.println("running the bottom gate");
             try

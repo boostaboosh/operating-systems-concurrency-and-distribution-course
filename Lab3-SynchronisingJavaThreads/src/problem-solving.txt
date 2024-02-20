@@ -1,0 +1,20 @@
+A large ornamental garden is open to members of the public
+who can enter through either one of two gates at the lower
+and upper part of the garden. The management want to
+determine how many people are in the garden at any one time.
+They design a computer system to do this.
+
+problem-solving:
+
+first thoughts:
+Two gates thread instances (top and bottom)
+will access a shared synchronised garden.
+The garden will access the file as in practicals 0 and 1.
+
+Actually, I need to run the gate thread instances at the same time,
+so instead of having two instances of a gate thread, one called top
+and one called bottom, in the same program; I will run two programs
+at the same time, and each one will create a gate thread.
+I will give gate threads a name instance variable so that I can
+distinguish between top and bottom gates by calling one threads top,
+and the other thread bottom.
