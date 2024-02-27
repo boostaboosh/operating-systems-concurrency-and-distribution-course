@@ -3,7 +3,7 @@
  * problem by filling a garden with people which enter through
  * the garden's gates.
  */
-public class GardenGateProblemSingleGateRunner
+public class GardenGateProblemRunner
 {
    /**
     * Starts the program
