@@ -1,0 +1,5 @@
+the customers try and enter the shop, if it's full they wait
+the fishmonger serves customers and takes a random amount of time up to 300ms to do so
+customers can enter the shop during those 300ms which stops the fishmonger from resting
+
+two shops now
