@@ -16,13 +16,12 @@ public class Connection extends Thread
 
    public void run()
    {
-      // getOutputStream runs at OutputStream object
+      // getOutputStream runs an OutputStream object
       // allowing ordinary file IO over the socket.
       try
       {
          // create a new PrintWriter with auto flushing
-         PrintWriter pout = new PrintWriter
-               (outputLine.getOutputStream(), true);
+         PrintWriter pout = new PrintWriter(outputLine.getOutputStream(), true);
          // now send a message to the client
          pout.println("The Date and Time is " + new java.util.Date().toString());
          // now close the socket
