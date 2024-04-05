@@ -18,7 +18,7 @@ public class Connection extends Thread
    {
       // getOutputStream runs an OutputStream object
       // allowing ordinary file IO over the socket.
-      try
+      try 
       {
          // create a new PrintWriter with auto flushing
          PrintWriter pout = new PrintWriter(outputLine.getOutputStream(), true);
